@@ -159,27 +159,9 @@ for epoch in range(1):
             'test_acc': test_accs
         }, model.name + '_CIFAR100_checkpoint.pt')
 
-trs = []
-tes = []
-for i in train_accs:
-    try:
-        a = i.cpu().item()
-        trs.append(a)
-    except:
-        trs.append(i)
-for i in test_accs:
-    try:
-        a = i.cpu().item()
-        tes.append(a)
-    except:
-        tes.append(i)
 train_accs = [acc.cpu().item() for acc in train_accs]
 test_accs = [acc.cpu().item() for acc in test_accs]
-df = pd.DataFrame({'train_acc':trs, 'test_acc':tes})
-df.to_csv('df_acc.csv', index=False)
-df = pd.read_csv('df_acc.csv')
-train_accs = df['train_acc'].tolist()
-test_accs = df['test_acc'].tolist()
+
 # print(train_accs)
 # print(test_accs)
 plt.style.use('ggplot')
